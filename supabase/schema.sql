@@ -23,6 +23,9 @@ create policy "admin regalos" on public.regalos for all to authenticated using (
 
 create policy "admin regalos_invitados" on public.regalos_invitados for all to authenticated using (true) with check (true);
 
+-- Contador de visitas por invitado
+alter table public.invitados add column if not exists visitas int not null default 0;
+
 -- 2) Funciones públicas
 drop function if exists public.obtener_invitado(text);
 
@@ -41,11 +44,12 @@ set
 update
   public.invitados
 set
-  visto = true
+  visto = true,
+  visitas = visitas + 1
 where
   invitados.id = p_id;
 
--- marca que abrió la invitación
+-- marca que abrió la invitación y suma una visita
 return query
 select
   i.id,

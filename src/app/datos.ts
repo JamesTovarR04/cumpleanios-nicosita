@@ -16,6 +16,7 @@ export interface Invitado {
   cupos: number;
   mensaje?: string | null;
   asiste?: boolean;
+  visitas?: number;
 }
 
 // ====== COLORES SUGERIDOS PARA PAPEL Y BOLSA DE REGALO ======

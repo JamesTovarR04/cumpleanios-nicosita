@@ -35,7 +35,7 @@ import { SupabaseService } from './supabase.service';
           <mat-list>
             @for (i of invitados(); track i.id) {
               <mat-list-item>
-                <span matListItemTitle>{{ i.nombre }} ({{ i.cupos }}){{ i.asiste ? ' ✔ asiste' : '' }}{{ i.visto ? ' 👁' : '' }}</span>
+                <span matListItemTitle>{{ i.nombre }} ({{ i.cupos }}){{ i.asiste ? ' ✔ asiste' : '' }}{{ i.visitas ? ' · 👁 ' + i.visitas + (i.visitas === 1 ? ' visita' : ' visitas') : ' · sin visitas' }}</span>
                 <span matListItemLine>{{ enlace(i.id!) }}</span>
                 <button matListItemMeta mat-button (click)="copiar(enlace(i.id!))">Copiar</button>
               </mat-list-item>
