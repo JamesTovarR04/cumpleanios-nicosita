@@ -6,6 +6,7 @@ import { BotonScroll } from './secciones/boton-scroll/boton-scroll';
 import { Colores } from './secciones/colores/colores';
 import { Confirmar } from './secciones/confirmar/confirmar';
 import { Fecha } from './secciones/fecha/fecha';
+import { Mensaje } from './secciones/mensaje/mensaje';
 import { Lugar } from './secciones/lugar/lugar';
 import { Pie } from './secciones/pie/pie';
 import { Portada } from './secciones/portada/portada';
@@ -14,7 +15,7 @@ import { SupabaseService } from './supabase.service';
 
 @Component({
   selector: 'app-invitacion',
-  imports: [BotonScroll, Portada, Fecha, Lugar, Regalos, Colores, Confirmar, Pie],
+  imports: [BotonScroll, Mensaje, Portada, Fecha, Lugar, Regalos, Colores, Confirmar, Pie],
   template: `
     <app-portada [festejada]="evento.festejada" [invitado]="invitado()" />
     <app-fecha [fecha]="evento.fecha" />
@@ -23,8 +24,11 @@ import { SupabaseService } from './supabase.service';
       [barrio]="evento.barrio"
       [ciudad]="evento.ciudad"
     />
-    <app-regalos [invitadoId]="invitado()?.id ?? null" />
+    <app-regalos [invitadoId]="invitado()?.id ?? null" [festejada]="evento.festejada" />
     <app-colores />
+    @if (invitado()?.id) {
+      <app-mensaje [invitadoId]="invitado()!.id!" [festejada]="evento.festejada" />
+    }
     @if (invitado()?.id) {
       <app-confirmar [invitado]="invitado()!" />
     }

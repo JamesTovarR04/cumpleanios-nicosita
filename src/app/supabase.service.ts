@@ -56,6 +56,13 @@ export class SupabaseService {
     return this.rpc<void>('confirmar_asistencia', { p_id: invitadoId, p_asiste: asiste });
   }
 
+  async obtenerMensaje(invitadoId: string): Promise<string> {
+    return (await this.rpc<string | null>('obtener_mensaje', { p_invitado: invitadoId })) ?? '';
+  }
+  enviarMensaje(invitadoId: string, mensaje: string) {
+    return this.rpc<void>('enviar_mensaje', { p_invitado: invitadoId, p_mensaje: mensaje });
+  }
+
   // ===== Administrador (requiere sesión) =====
   async crearInvitado(inv: Pick<Invitado, 'nombre' | 'sexo' | 'cupos' | 'mensaje'>): Promise<string> {
     const { data, error } = await this.client.from('invitados').insert(inv).select('id').single();

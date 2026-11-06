@@ -202,3 +202,47 @@ authenticated;
 
 -- 3) Limpieza de la funcion de diagnostico
 drop function if exists public.ver_esquema();
+
+-- 4) Mensajes para la cumpleañera (un mensaje por invitado; puede editarlo)
+create table if not exists public.mensajes (
+  id bigint generated always as identity primary key,
+  created_at timestamptz not null default now(),
+  id_invitado uuid not null unique references public.invitados (id) on delete cascade,
+  mensaje text not null check (char_length(mensaje) between 1 and 500)
+);
+
+alter table public.mensajes enable row level security;
+
+drop policy if exists "admin mensajes" on public.mensajes;
+
+create policy "admin mensajes" on public.mensajes for all to authenticated using (true) with check (true);
+
+drop function if exists public.obtener_mensaje(uuid);
+
+create function public.obtener_mensaje(p_invitado uuid) returns text language sql stable security definer
+set
+  search_path = public as $fn$
+  select mensaje from public.mensajes where id_invitado = p_invitado;
+$fn$;
+
+drop function if exists public.enviar_mensaje(uuid, text);
+
+create function public.enviar_mensaje(p_invitado uuid, p_mensaje text) returns void language plpgsql security definer
+set
+  search_path = public as $fn$
+begin
+  if not exists (select 1 from public.invitados where id = p_invitado) then
+    raise exception 'Invitado no valido';
+  end if;
+  if char_length(trim(p_mensaje)) = 0 then
+    raise exception 'Escribe un mensaje';
+  end if;
+  insert into public.mensajes (id_invitado, mensaje)
+  values (p_invitado, left(trim(p_mensaje), 500))
+  on conflict (id_invitado) do update set mensaje = excluded.mensaje, created_at = now();
+end
+$fn$;
+
+grant execute on function public.obtener_mensaje(uuid),
+public.enviar_mensaje(uuid, text) to anon,
+authenticated;

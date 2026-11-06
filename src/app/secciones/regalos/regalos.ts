@@ -58,6 +58,10 @@ import { RegaloDialogo, textoCantidad } from './regalo-dialogo';
           }
         }
       </mat-list>
+      <p class="nota mx-auto">
+        <mat-icon>favorite</mat-icon>
+        Tu regalo también puede ser libre. Esta lista es solo una sugerencia, pensada según los gustos de {{ festejada() }}.
+      </p>
       @if (error()) {
         <p class="error">{{ error() }}</p>
       }
@@ -69,6 +73,7 @@ export class Regalos {
   private dialog = inject(MatDialog);
   texto = textoCantidad;
   invitadoId = input<string | null>(null);
+  festejada = input('la cumpleañera');
   regalos = signal<RegaloDB[]>([]);
   error = signal('');
 

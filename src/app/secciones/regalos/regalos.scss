@@ -31,3 +31,4 @@ cite {
 .error { color: var(--mat-sys-error); }
 img[matListItemAvatar] { object-fit: cover; }
 mat-list-item { cursor: pointer; }
+.nota { max-width: 560px; margin-top: 1.5rem; font-style: italic; color: var(--mat-sys-on-surface-variant); mat-icon { vertical-align: middle; color: var(--mat-sys-primary); } }
