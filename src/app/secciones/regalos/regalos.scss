@@ -1,0 +1,24 @@
+:host {
+  display: block;
+}
+.regalos {
+  max-width: 560px;
+  text-align: left;
+  border-radius: 20px;
+  background: var(--mat-sys-surface-container-low);
+}
+mat-list-item {
+  transition: background 0.3s;
+  &:hover {
+    background: var(--mat-sys-primary-container);
+  }
+}
+mat-icon {
+  transition: transform 0.4s;
+}
+mat-list-item:hover mat-icon {
+  transform: rotate(360deg) scale(1.2);
+}
+cite {
+  color: var(--mat-sys-on-surface-variant);
+}

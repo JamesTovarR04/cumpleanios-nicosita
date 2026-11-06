@@ -1,0 +1,72 @@
+:host {
+  display: block;
+}
+.hero {
+  font-family: "Newsreader", serif;
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    160deg,
+    var(--mat-sys-primary-container),
+    var(--mat-sys-tertiary-container)
+  );
+  background-size: 200% 200%;
+  animation: fondo 12s ease-in-out infinite alternate;
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    animation: flota 8s ease-in-out infinite;
+  }
+  &::before {
+    width: 260px;
+    height: 260px;
+    top: -70px;
+    left: -70px;
+  }
+  &::after {
+    width: 160px;
+    height: 160px;
+    bottom: 8%;
+    right: -40px;
+    animation-delay: -4s;
+  }
+}
+mat-card {
+  position: relative;
+  z-index: 1;
+  max-width: 520px;
+  margin: auto;
+  padding: 2rem 1rem;
+  animation: entra 1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.script {
+  font-family: "MonteCarlo", cursive;
+  font-style: normal;
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1;
+  margin: 0.5rem 0;
+  background: linear-gradient(
+    90deg,
+    var(--mat-sys-primary),
+    var(--mat-sys-tertiary),
+    var(--mat-sys-primary)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: brilla 4s linear infinite;
+}
+.mensaje {
+  font-family: serif;
+  font-style: italic;
+  text-align: center;
+  color: #313131;
+}

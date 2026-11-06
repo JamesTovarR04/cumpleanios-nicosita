@@ -1,0 +1,120 @@
+@use "@angular/material" as mat;
+@use "./espaciado";
+
+html {
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$violet-palette,
+        tertiary: mat.$azure-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  font-family: "Newsreader", serif;
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}
+
+// ===== Compartido entre secciones =====
+$grad: linear-gradient(
+  160deg,
+  var(--mat-sys-primary-container),
+  var(--mat-sys-tertiary-container)
+);
+
+section {
+  text-align: center;
+  padding: 1rem;
+}
+.alt {
+  background: $grad;
+}
+
+@keyframes entra {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.96);
+  }
+}
+@keyframes flota {
+  50% {
+    transform: translateY(-18px);
+  }
+}
+@keyframes brilla {
+  to {
+    background-position: 200% center;
+  }
+}
+@keyframes aparece {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+}
+@keyframes pulso {
+  50% {
+    transform: scale(1.12);
+  }
+}
+@keyframes fondo {
+  to {
+    background-position: 100% 100%;
+  }
+}
+
+a[mat-flat-button] {
+  transition: transform 0.2s;
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+// Aparecer al hacer scroll (navegadores con scroll-driven animations)
+@supports (animation-timeline: view()) {
+  section:not(.hero) > *,
+  .regalos mat-list-item {
+    animation: aparece linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 45%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+.titulos {
+  background: linear-gradient(90deg, #5f00c0, #baa6da, #3d2169);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: brilla 4s linear infinite;
+  font-family: "MonteCarlo", cursive;
+  font-size: 2rem;
+  margin: 0;
+  border-bottom: 1px solid
+    var(--mat-divider-color, var(--mat-sys-outline-variant));
+  margin-bottom: 1.5rem;
+  padding-right: 30px;
+  padding-bottom: 0.5rem;
+  .mat-icon {
+    font-size: 2rem;
+    margin-bottom: -5px;
+    margin-right: 4px;
+    height: 30px;
+    width: 30px;
+  }
+}

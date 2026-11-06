@@ -1,0 +1,17 @@
+:host {
+  display: block;
+}
+.mapa {
+  width: 100%;
+  max-width: 560px;
+  height: 280px;
+  border: 0;
+  border-radius: 20px;
+  margin: 1rem 0;
+}
+.lugar {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+}

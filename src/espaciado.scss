@@ -1,0 +1,36 @@
+// Utilidades de espaciado estilo Bootstrap: m-2, mt-3, ms-2 (o m-s-2), mx-auto, p-4, py-1...
+// Escala: 0=0, 1=.25rem, 2=.5rem, 3=1rem, 4=1.5rem, 5=3rem
+$escala: (0: 0, 1: .25rem, 2: .5rem, 3: 1rem, 4: 1.5rem, 5: 3rem);
+$props: (m: margin, p: padding);
+$lados: (
+  '': (''),
+  't': ('-top'),
+  'b': ('-bottom'),
+  's': ('-inline-start'),
+  'e': ('-inline-end'),
+  'x': ('-inline-start', '-inline-end'),
+  'y': ('-top', '-bottom'),
+);
+
+@each $abrev, $prop in $props {
+  @each $lado, $sufijos in $lados {
+    @each $n, $valor in $escala {
+      $sel: '.#{$abrev}#{$lado}-#{$n}';
+      @if $lado != '' { $sel: '#{$sel}, .#{$abrev}-#{$lado}-#{$n}'; }
+      #{$sel} {
+        @each $s in $sufijos { #{$prop}#{$s}: $valor !important; }
+      }
+    }
+  }
+}
+
+// Márgenes automáticos
+@each $lado, $sufijos in $lados {
+  @if $lado != 'b' and $lado != '' {
+    .m#{$lado}-auto {
+      @each $s in $sufijos { margin#{$s}: auto !important; }
+    }
+  }
+}
+.m-auto { margin: auto !important; }
+.mb-auto { margin-bottom: auto !important; }
