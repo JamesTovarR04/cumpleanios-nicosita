@@ -10,6 +10,11 @@ import { REGALOS } from '../../datos';
   styleUrl: './regalos.scss',
   template: `
     <section>
+      <img class="flor globo izq arriba" src="globo.png" alt="" /><img
+        class="flor globo der abajo"
+        src="globo.png"
+        alt=""
+      />
       <h1 class="titulos">
         <mat-icon>card_giftcard</mat-icon> Lista de regalos
       </h1>

@@ -79,7 +79,7 @@ a[mat-flat-button] {
 
 // Aparecer al hacer scroll (navegadores con scroll-driven animations)
 @supports (animation-timeline: view()) {
-  section:not(.hero) > *,
+  section:not(.hero) > *:not(.flor),
   .regalos mat-list-item {
     animation: aparece linear both;
     animation-timeline: view();
@@ -118,3 +118,17 @@ a[mat-flat-button] {
     width: 30px;
   }
 }
+
+// ===== Flores decorativas (se sobreponen en los lados de las secciones) =====
+html, body { max-width: 100%; overflow-x: clip; }
+section { position: relative; overflow-x: clip; } // evita scroll horizontal por elementos que sobresalen
+.flor {
+  position: absolute; z-index: 2; pointer-events: none; width: clamp(110px, 22vw, 260px); height: auto;
+  filter: drop-shadow(0 6px 10px rgba(80, 60, 130, .2)); animation: balanceo 7s ease-in-out infinite alternate;
+  &.izq { left: -3%; }
+  &.der { right: -3%; scale: -1 1; } // espejo
+  &.arriba { top: -2rem; }
+  &.abajo { bottom: -2rem; }
+}
+@keyframes balanceo { to { rotate: 4deg; } }
+.flor.globo { width: clamp(60px, 10vw, 120px); animation-name: flota; animation-duration: 6s; }

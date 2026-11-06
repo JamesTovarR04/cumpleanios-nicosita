@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './fecha.scss',
   template: `
     <section class="p-b-5">
+      <img class="flor globo izq arriba" src="globo.png" alt="" />
       <h1 class="titulos"><mat-icon>event</mat-icon> Fecha</h1>
       <div class="fecha">
         <span>LUNES 9 DE NOVIEMBRE</span>

@@ -10,6 +10,11 @@ import { Invitado } from '../../datos';
   styleUrl: './portada.scss',
   template: `
     <section class="hero">
+      <img class="flor izq abajo" src="flores-c.png" alt="" /><img
+        class="flor der arriba"
+        src="flores-c.png"
+        alt=""
+      />
       <mat-card appearance="raised">
         <mat-card-content>
           @if (invitado(); as inv) {
