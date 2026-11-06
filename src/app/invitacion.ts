@@ -1,7 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { EVENTO, INVITADOS, Invitado } from './datos';
+import { EVENTO, Invitado } from './datos';
+import { BotonScroll } from './secciones/boton-scroll/boton-scroll';
 import { Colores } from './secciones/colores/colores';
 import { Confirmar } from './secciones/confirmar/confirmar';
 import { Fecha } from './secciones/fecha/fecha';
@@ -9,10 +10,11 @@ import { Lugar } from './secciones/lugar/lugar';
 import { Pie } from './secciones/pie/pie';
 import { Portada } from './secciones/portada/portada';
 import { Regalos } from './secciones/regalos/regalos';
+import { SupabaseService } from './supabase.service';
 
 @Component({
   selector: 'app-invitacion',
-  imports: [Portada, Fecha, Lugar, Regalos, Colores, Confirmar, Pie],
+  imports: [BotonScroll, Portada, Fecha, Lugar, Regalos, Colores, Confirmar, Pie],
   template: `
     <app-portada [festejada]="evento.festejada" [invitado]="invitado()" />
     <app-fecha [fecha]="evento.fecha" />
@@ -21,17 +23,20 @@ import { Regalos } from './secciones/regalos/regalos';
       [barrio]="evento.barrio"
       [ciudad]="evento.ciudad"
     />
-    <app-regalos />
+    <app-regalos [invitadoId]="invitado()?.id ?? null" />
     <app-colores />
-    @if (evento.whatsapp) {
-      <app-confirmar [whatsapp]="evento.whatsapp" [invitado]="invitado()" />
+    @if (invitado()?.id) {
+      <app-confirmar [invitado]="invitado()!" />
     }
     <app-pie />
+    <app-boton-scroll />
   `,
 })
 export class Invitacion {
   evento = EVENTO;
   invitado = signal<Invitado | null>(null);
+
+  private db = inject(SupabaseService);
 
   constructor() {
     const route = inject(ActivatedRoute);
@@ -40,11 +45,9 @@ export class Invitacion {
     );
   }
 
-  // Admite /#/ana (definido en datos.ts) o ?nombre=Ana&sexo=F&cupos=2
-  private cargar(id: string | null, q: ParamMap) {
-    let inv: Invitado | null = id
-      ? (INVITADOS[id.toLowerCase()] ?? null)
-      : null;
+  // Admite /#/<uuid> (invitado guardado en Supabase) o ?nombre=Ana&sexo=F&cupos=2
+  private async cargar(id: string | null, q: ParamMap) {
+    let inv: Invitado | null = id ? await this.db.obtenerInvitado(id) : null;
     const nombre = q.get('nombre');
     if (!inv && nombre) {
       inv = {

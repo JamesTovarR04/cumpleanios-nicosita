@@ -35,10 +35,7 @@ import { Invitado } from '../../datos';
           </p>
           <div class="script">{{ festejada() }}</div>
           <mat-divider />
-          <p class="mensaje">
-            Será un gran gusto contar con tu presencia para compartir este día
-            tan especial.
-          </p>
+          <p class="mensaje">{{ invitado()?.mensaje || 'Será un gran gusto contar con tu presencia para compartir este día tan especial.' }}</p>
           @if (invitado()?.cupos; as c) {
             <mat-chip>{{
               c === 1 ? '1 cupo reservado' : c + ' cupos reservados'

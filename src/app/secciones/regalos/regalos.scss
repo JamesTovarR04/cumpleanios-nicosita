@@ -25,3 +25,9 @@ mat-list-item:hover mat-icon {
 cite {
   color: var(--mat-sys-on-surface-variant);
 }
+
+.acciones { display: flex; align-items: center; gap: .25rem; }
+.elegido { background: var(--mat-sys-primary-container); }
+.error { color: var(--mat-sys-error); }
+img[matListItemAvatar] { object-fit: cover; }
+mat-list-item { cursor: pointer; }
