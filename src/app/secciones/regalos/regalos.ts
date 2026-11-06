@@ -4,12 +4,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
 import { RegaloDB, SupabaseService } from '../../supabase.service';
 import { RegaloDialogo, textoCantidad } from './regalo-dialogo';
 
 @Component({
   selector: 'app-regalos',
-  imports: [MatListModule, MatIconModule, MatDividerModule, MatButtonModule],
+  imports: [
+    MatListModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatCardModule,
+  ],
   styleUrl: './regalos.scss',
   template: `
     <section>
@@ -19,12 +26,18 @@ import { RegaloDialogo, textoCantidad } from './regalo-dialogo';
         alt=""
       />
       <h1 class="titulos"><mat-icon>card_giftcard</mat-icon> Regalos</h1>
-      <p>
-        " Tu presencia es el mejor regalo, pero si deseas tener un detalle, aquí
-        hay algunas ideas. "
-      </p>
+      <mat-card class="m-b-3">
+        <mat-card-content>
+          <p class="mensaje m-t-2">
+            " Tu presencia es el mejor regalo, pero si deseas tener un detalle,
+            aquí hay algunas ideas. "
+          </p>
+        </mat-card-content>
+      </mat-card>
       @if (invitadoId()) {
-        <p class="mat-label-large">Marca el regalo que llevarás para que no se repita.</p>
+        <p class="mat-label-large">
+          Marca el regalo que quieras llevarpara que no se repita.
+        </p>
       }
       <mat-list class="regalos mx-auto">
         @for (r of regalos(); track r.id; let last = $last) {
@@ -35,20 +48,39 @@ import { RegaloDialogo, textoCantidad } from './regalo-dialogo';
               <mat-icon matListItemIcon>redeem</mat-icon>
             }
             <span matListItemTitle>{{ r.titulo }}</span>
-            <span matListItemLine>{{ texto(r.cantidad) }}{{ r.unico ? ' · Regalo único' : '' }}</span>
+            <span matListItemLine
+              >{{ texto(r.cantidad)
+              }}{{ r.unico ? ' · Regalo único' : '' }}</span
+            >
             <span matListItemMeta class="acciones">
               @if (r.link) {
-                <a mat-icon-button [href]="r.link" target="_blank" rel="noopener" aria-label="Ver regalo" (click)="$event.stopPropagation()"
+                <a
+                  mat-icon-button
+                  [href]="r.link"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Ver regalo"
+                  (click)="$event.stopPropagation()"
                   ><mat-icon>open_in_new</mat-icon></a
                 >
               }
               @if (invitadoId()) {
                 @if (r.elegido) {
-                  <button mat-flat-button (click)="abrir(r, $event)"><mat-icon>check</mat-icon>Lo llevaré</button>
+                  <button mat-flat-button (click)="abrir(r, $event)">
+                    <mat-icon>check</mat-icon>Lo llevaré
+                  </button>
                 } @else if (r.tomado) {
-                  <button mat-stroked-button disabled (click)="$event.stopPropagation()">Reservado</button>
+                  <button
+                    mat-stroked-button
+                    disabled
+                    (click)="$event.stopPropagation()"
+                  >
+                    Reservado
+                  </button>
                 } @else {
-                  <button mat-stroked-button (click)="abrir(r, $event)">Elegir</button>
+                  <button mat-stroked-button (click)="abrir(r, $event)">
+                    Elegir
+                  </button>
                 }
               }
             </span>
@@ -58,9 +90,10 @@ import { RegaloDialogo, textoCantidad } from './regalo-dialogo';
           }
         }
       </mat-list>
-      <p class="nota mx-auto">
+      <p class="nota mx-auto m-b-5">
         <mat-icon>favorite</mat-icon>
-        Tu regalo también puede ser libre. Esta lista es solo una sugerencia, pensada según los gustos de {{ festejada() }}.
+        Tu regalo también puede ser libre. Esta lista es solo una sugerencia,
+        pensada según algunos gustos de Nicolth.
       </p>
       @if (error()) {
         <p class="error">{{ error() }}</p>
@@ -98,9 +131,15 @@ export class Regalos {
   abrir(r: RegaloDB, evento?: Event) {
     evento?.stopPropagation();
     this.dialog
-      .open(RegaloDialogo, { data: { regalo: r, puedeElegir: !!this.invitadoId() }, width: '480px', maxWidth: '92vw' })
+      .open(RegaloDialogo, {
+        data: { regalo: r, puedeElegir: !!this.invitadoId() },
+        width: '480px',
+        maxWidth: '92vw',
+      })
       .afterClosed()
-      .subscribe((accion?: 'elegir' | 'quitar') => accion && this.alternar(r, accion));
+      .subscribe(
+        (accion?: 'elegir' | 'quitar') => accion && this.alternar(r, accion),
+      );
   }
 
   private async alternar(r: RegaloDB, accion: 'elegir' | 'quitar') {
@@ -108,7 +147,9 @@ export class Regalos {
     if (!id) return;
     this.error.set('');
     try {
-      await (accion === 'quitar' ? this.db.quitarRegalo(id, r.id) : this.db.elegirRegalo(id, r.id));
+      await (accion === 'quitar'
+        ? this.db.quitarRegalo(id, r.id)
+        : this.db.elegirRegalo(id, r.id));
     } catch (e) {
       this.error.set((e as Error).message);
     }
