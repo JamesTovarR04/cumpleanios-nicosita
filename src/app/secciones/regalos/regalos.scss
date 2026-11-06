@@ -11,13 +11,13 @@ section {
   background: var(--mat-sys-surface-container-low);
 }
 mat-list-item {
-  transition: background 0.3s;
+  transition: background 0.6s;
   &:hover {
     background: var(--mat-sys-primary-container);
   }
 }
 mat-icon {
-  transition: transform 0.4s;
+  transition: transform 0.8s;
 }
 mat-list-item:hover mat-icon {
   transform: rotate(360deg) scale(1.2);

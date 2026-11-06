@@ -1,0 +1,9 @@
+:host {
+  position: fixed; inset: 0; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
+  background: linear-gradient(160deg, var(--mat-sys-primary-container), var(--mat-sys-tertiary-container));
+  transition: opacity .6s ease, visibility .6s;
+  &.oculto { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+img { height: 120px; animation: flota 2.5s ease-in-out infinite; }
+.script { font-family: 'MonteCarlo', cursive; font-size: 2.5rem; color: var(--mat-sys-primary); }
+p { margin: 0; color: var(--mat-sys-on-surface-variant); }

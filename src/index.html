@@ -43,8 +43,15 @@
     <meta property="og:image:height" content="692" />
     <meta property="og:image:alt" content="Invitación al cumpleaños de Nicolth" />
     <meta name="twitter:card" content="summary" />
-  </head>
+      <style>
+      .pre { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+        background: linear-gradient(160deg, #e8deff, #cde5ff); }
+      .pre i { width: 40px; height: 40px; border: 4px solid rgba(98, 83, 148, .25); border-top-color: #625394;
+        border-radius: 50%; animation: pre-giro 0.9s linear infinite; }
+      @keyframes pre-giro { to { transform: rotate(360deg); } }
+    </style>
+</head>
   <body>
-    <app-root></app-root>
+    <app-root><div class="pre"><i></i></div></app-root>
   </body>
 </html>

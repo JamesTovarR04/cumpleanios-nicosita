@@ -73,6 +73,7 @@ export class Regalos {
   private dialog = inject(MatDialog);
   texto = textoCantidad;
   invitadoId = input<string | null>(null);
+  inicial = input<RegaloDB[] | null>(null); // datos ya consultados (pantalla de carga)
   festejada = input('la cumpleañera');
   regalos = signal<RegaloDB[]>([]);
   error = signal('');
@@ -80,7 +81,9 @@ export class Regalos {
   constructor() {
     effect(() => {
       this.invitadoId();
-      this.cargar();
+      const ini = this.inicial();
+      if (ini) this.regalos.set(ini);
+      else this.cargar();
     });
   }
 
