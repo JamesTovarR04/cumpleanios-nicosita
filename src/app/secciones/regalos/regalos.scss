@@ -1,6 +1,9 @@
 :host {
   display: block;
 }
+section {
+  background: var(--mat-sys-surface);
+}
 .regalos {
   max-width: 560px;
   text-align: left;

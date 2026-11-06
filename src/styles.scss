@@ -16,9 +16,9 @@ html {
 }
 
 body {
-  margin: 0;
+  margin: 0 auto;
   font-family: "Newsreader", serif;
-  background: var(--mat-sys-surface);
+  max-width: 530px;
   color: var(--mat-sys-on-surface);
 }
 

@@ -1,6 +1,13 @@
 :host {
   display: block;
 }
+section {
+  background-image: url("/pastel.jpg");
+  background-repeat: no-repeat;
+  background-position-x: 200px;
+  background-position-y: bottom;
+  background-size: 50%;
+}
 .mapa {
   width: 100%;
   max-width: 560px;

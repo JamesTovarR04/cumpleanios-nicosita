@@ -3,7 +3,7 @@
 }
 .hero {
   font-family: "Newsreader", serif;
-  min-height: 60vh;
+  min-height: 70vh;
   display: grid;
   place-items: center;
   position: relative;
@@ -44,6 +44,12 @@ mat-card {
   margin: auto;
   padding: 2rem 1rem;
   animation: entra 1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  background-image: url("/globos.png");
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: top;
+  background-size: contain;
+  background-color: white;
 }
 .script {
   font-family: "MonteCarlo", cursive;
