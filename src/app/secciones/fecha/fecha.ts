@@ -21,7 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
         <span>LUNES 9 DE NOVIEMBRE</span>
       </div>
       <div class="fecha">
-        <strong>7:00 PM</strong>
+        <strong>8:00 PM</strong>
       </div>
       <div class="cuenta">
         @for (c of cuenta(); track c.l) {

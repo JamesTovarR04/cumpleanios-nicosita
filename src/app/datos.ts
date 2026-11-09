@@ -1,7 +1,7 @@
 // ====== CONFIGURACIÓN DEL EVENTO ======
 export const EVENTO = {
   festejada: 'Nicolth Daniela Castro',
-  fecha: new Date(2026, 10, 9, 19, 0, 0), // lunes 9 de noviembre, 7:00 pm
+  fecha: new Date(2026, 10, 9, 20, 0, 0), // lunes 9 de noviembre, 8:00 pm
   lugar: 'Calle 21 #39-36',
   barrio: 'Barrio Guaduales',
   ciudad: 'Neiva', // opcional: agrega la ciudad para mejorar el mapa, ej. 'Cali'
